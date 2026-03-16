@@ -84,6 +84,7 @@ export default function RootLayout({
               <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-6 text-sm text-white/58 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
                 <p>SlowPoker is a play-for-fun game. No real money gambling is involved.</p>
                 <div className="flex flex-wrap gap-4">
+                  <Link href="/install">Install App</Link>
                   <Link href="/privacy">Privacy</Link>
                   <Link href="/terms">Terms</Link>
                   <Link href="/imprint">Contact</Link>
