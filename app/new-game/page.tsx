@@ -12,13 +12,13 @@ export default async function NewGamePage() {
       <section className="panel rounded-[2rem] p-6 sm:p-8">
         <div className="eyebrow text-xs text-white/48">Authentication required</div>
         <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
-          Devi autenticarti per creare una nuova partita.
+          You need to sign in to create a new game.
         </h1>
         <Link
           href="/sign-in"
           className="mt-8 inline-flex rounded-full border border-white/10 px-5 py-3 text-sm text-white transition hover:border-white/25"
         >
-          Vai al login
+          Go to sign in
         </Link>
       </section>
     );
@@ -35,7 +35,7 @@ export default async function NewGamePage() {
       <section className="panel rounded-[2rem] p-6 sm:p-8">
         <div className="eyebrow text-xs text-white/48">Create game</div>
         <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
-          Avvia una nuova partita heads-up con blinds standard.
+          Start a new heads-up game with standard blinds.
         </h1>
         <form action={createGameAction} className="mt-8 space-y-6">
           <label className="block space-y-2">
@@ -54,7 +54,7 @@ export default async function NewGamePage() {
             </select>
             {opponents.length === 0 ? (
               <span className="text-xs text-amber-300/80">
-                Nessun avversario disponibile: il secondo account deve aprire l&apos;app almeno una volta per essere sincronizzato nel database.
+                No opponents available: the second account must open the app at least once to be synced into the database.
               </span>
             ) : null}
           </label>
@@ -85,9 +85,9 @@ export default async function NewGamePage() {
       <section className="panel rounded-[2rem] p-6 sm:p-8">
         <div className="eyebrow text-xs text-white/48">Validation rules</div>
         <ul className="mt-5 space-y-4 text-sm leading-6 text-white/72">
-          <li>Tutto il deck viene generato sul server e mai nel client.</li>
-          <li>Le mosse sono validate in base a currentPlayerId, fase e importi disponibili.</li>
-          <li>Il link di invito puo&apos; essere usato per agganciare il secondo player a una partita in attesa.</li>
+          <li>The full deck is generated server-side and never in the client.</li>
+          <li>Moves are validated against currentPlayerId, phase, and available amounts.</li>
+          <li>The invite link can be used to attach the second player to a pending game.</li>
         </ul>
       </section>
     </div>

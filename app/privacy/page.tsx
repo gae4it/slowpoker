@@ -2,11 +2,11 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       title="Privacy"
-      description="SlowPoker raccoglie i dati minimi necessari per autenticazione, persistenza delle partite e gestione delle notifiche di turno."
+      description="SlowPoker collects only the minimum data required for authentication, game persistence, and turn notifications."
       sections={[
-        "I dati account vengono gestiti tramite Clerk come provider di autenticazione.",
-        "Le partite, le mosse e lo stato applicativo sono ospitati su Neon PostgreSQL e distribuiti tramite Vercel.",
-        "Le notifiche browser, se abilitate, vengono usate esclusivamente per avvisare quando e' il tuo turno.",
+        "Account data is managed through Clerk as the authentication provider.",
+        "Games, moves, and application state are hosted on Neon PostgreSQL and served via Vercel.",
+        "Browser notifications, if enabled, are used exclusively to alert you when it is your turn.",
       ]}
     />
   );

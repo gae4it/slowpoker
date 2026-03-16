@@ -7,31 +7,37 @@ type BeforeInstallPromptEvent = Event & {
   userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
 };
 
-export function InstallAppButton() {
+export function useInstallPrompt() {
   const [event, setEvent] = useState<BeforeInstallPromptEvent | null>(null);
 
   useEffect(() => {
-    const handleBeforeInstallPrompt = (nextEvent: Event) => {
-      nextEvent.preventDefault();
-      setEvent(nextEvent as BeforeInstallPromptEvent);
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setEvent(e as BeforeInstallPromptEvent);
     };
-
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-    return () => window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
-  if (!event) {
-    return null;
-  }
+  const prompt = async () => {
+    if (!event) return;
+    await event.prompt();
+    setEvent(null);
+  };
+
+  return { canInstall: !!event, prompt };
+}
+
+export function InstallAppButton() {
+  const { canInstall, prompt } = useInstallPrompt();
+
+  if (!canInstall) return null;
 
   return (
     <button
       type="button"
       className="rounded-full border border-white/14 px-5 py-3 text-sm font-medium text-white transition hover:border-white/30"
-      onClick={async () => {
-        await event.prompt();
-        setEvent(null);
-      }}
+      onClick={prompt}
     >
       Install App
     </button>

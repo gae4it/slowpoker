@@ -72,16 +72,16 @@ export default async function DashboardPage() {
           <div>
             <div className="eyebrow text-xs text-white/48">Game queue</div>
             <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
-              Gestisci tutte le partite senza perdere il turno importante.
+              Manage all your games without missing an important turn.
             </h1>
             <p className="mt-2 text-sm text-white/58">
               Signed in as {syncState && "user" in syncState ? syncState.user?.username : userId ?? "player"}
             </p>
             {syncState?.synced ? (
-              <p className="mt-1 text-xs text-emerald-300/90">Profilo applicativo sincronizzato su database.</p>
+              <p className="mt-1 text-xs text-emerald-300/90">App profile synced to database.</p>
             ) : (
               <p className="mt-1 text-xs text-amber-300/90">
-                Database non configurato: sincronizzazione utente in fallback locale.
+                Database not configured: user sync in local fallback.
               </p>
             )}
           </div>
@@ -136,7 +136,7 @@ export default async function DashboardPage() {
                     <div className="text-sm font-medium text-white">{item.title}</div>
                     <div className="mt-1 text-sm text-white/65">{item.body}</div>
                     <div className="mt-2 text-xs text-white/45">
-                      {new Intl.DateTimeFormat("it-IT", {
+                      {new Intl.DateTimeFormat("en-US", {
                         dateStyle: "short",
                         timeStyle: "short",
                       }).format(item.createdAt)}
@@ -170,13 +170,13 @@ export default async function DashboardPage() {
             ))
           ) : (
             <div className="rounded-2xl border border-white/10 bg-white/4 p-4 text-sm text-white/65">
-              Nessuna notifica non letta.
+              No unread notifications.
             </div>
           )}
         </div>
         {notificationState.items.length === 0 && syncState?.synced ? (
           <div className="mt-4 text-xs text-white/45">
-            Torna a <Link href="/new-game" className="text-white/72 underline decoration-white/20 underline-offset-4">creare una partita</Link> per generare nuovi eventi.
+            Go to <Link href="/new-game" className="text-white/72 underline decoration-white/20 underline-offset-4">create a game</Link> to generate new events.
           </div>
         ) : null}
       </section>

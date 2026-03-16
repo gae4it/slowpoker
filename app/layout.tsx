@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
 import Link from "next/link";
 import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import { AuthNavControls } from "@/components/auth-nav-controls";
 import { AuthSyncBootstrap } from "@/components/auth-sync-bootstrap";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
+import { Providers } from "./providers";
+import { BottomNav } from "@/components/bottom-nav";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -41,8 +42,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it">
-      <body className={`${spaceGrotesk.variable} ${ibmPlexMono.variable}`}>
-        <ClerkProvider>
+      <body className={`${spaceGrotesk.variable} ${ibmPlexMono.variable}`} suppressHydrationWarning>
+        <Providers>
           <AuthSyncBootstrap />
           <div className="grain" />
           <div className="page-shell relative flex min-h-screen flex-col">
@@ -60,20 +61,20 @@ export default function RootLayout({
                   </div>
                 </Link>
                 <nav className="flex items-center gap-3 text-sm text-white/72">
-                  <Link href="/dashboard" className="rounded-full border border-white/10 px-4 py-2 transition hover:border-white/25 hover:text-white">
+                  <Link href="/dashboard" className="hidden sm:block rounded-full border border-white/10 px-4 py-2 transition hover:border-white/25 hover:text-white">
                     Dashboard
                   </Link>
-                  <Link href="/new-game" className="rounded-full bg-white px-4 py-2 font-medium text-black transition hover:bg-zinc-200">
+                  <Link href="/new-game" className="hidden sm:block rounded-full bg-white px-4 py-2 font-medium text-black transition hover:bg-zinc-200">
                     New Game
                   </Link>
                   <AuthNavControls />
                 </nav>
               </div>
             </header>
-            <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-6 sm:px-6 lg:px-8">
+            <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-6 pb-24 sm:pb-6 sm:px-6 lg:px-8">
               {children}
             </main>
-            <footer className="border-t border-white/8 bg-black/25">
+            <footer className="border-t border-white/8 bg-black/25 pb-[calc(4rem+env(safe-area-inset-bottom))] sm:pb-0">
               <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-6 text-sm text-white/58 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
                 <p>SlowPoker is a play-for-fun game. No real money gambling is involved.</p>
                 <div className="flex flex-wrap gap-4">
@@ -84,8 +85,9 @@ export default function RootLayout({
               </div>
             </footer>
           </div>
+          <BottomNav />
           <ServiceWorkerRegistration />
-        </ClerkProvider>
+        </Providers>
       </body>
     </html>
   );
