@@ -56,6 +56,7 @@ export const moves = pgTable("moves", {
   id: uuid("id").defaultRandom().primaryKey(),
   gameId: uuid("game_id").notNull(),
   playerId: uuid("player_id").notNull(),
+  phase: gamePhaseEnum("phase").default("preflop").notNull(),
   action: moveActionEnum("action").notNull(),
   amount: integer("amount").default(0).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),

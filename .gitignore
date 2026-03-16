@@ -11,3 +11,6 @@ coverage/
 drizzle/
 tmp-next/
 .tmp-next/
+
+# clerk configuration (can include secrets)
+/.clerk/

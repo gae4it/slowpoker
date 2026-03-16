@@ -1,10 +1,35 @@
-const registeredUsers = [
-  { id: "u-1", username: "alex" },
-  { id: "u-2", username: "maria" },
-  { id: "u-3", username: "jade" },
-];
+import Link from "next/link";
+import { auth } from "@clerk/nextjs/server";
+import { createGameAction } from "@/app/actions/games";
+import { syncClerkUser } from "@/lib/auth/sync-clerk-user";
+import { listOpponents } from "@/lib/db/queries";
 
-export default function NewGamePage() {
+export default async function NewGamePage() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return (
+      <section className="panel rounded-[2rem] p-6 sm:p-8">
+        <div className="eyebrow text-xs text-white/48">Authentication required</div>
+        <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
+          Devi autenticarti per creare una nuova partita.
+        </h1>
+        <Link
+          href="/sign-in"
+          className="mt-8 inline-flex rounded-full border border-white/10 px-5 py-3 text-sm text-white transition hover:border-white/25"
+        >
+          Vai al login
+        </Link>
+      </section>
+    );
+  }
+
+  const syncState = await syncClerkUser();
+  const opponents =
+    syncState && syncState.synced && syncState.user
+      ? await listOpponents(syncState.user.id)
+      : [];
+
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_0.8fr]">
       <section className="panel rounded-[2rem] p-6 sm:p-8">
@@ -12,16 +37,26 @@ export default function NewGamePage() {
         <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
           Avvia una nuova partita heads-up con blinds standard.
         </h1>
-        <form className="mt-8 space-y-6">
+        <form action={createGameAction} className="mt-8 space-y-6">
           <label className="block space-y-2">
             <span className="text-sm text-white/72">Opponent</span>
-            <select className="w-full rounded-[1.25rem] border border-white/10 bg-black/25 px-4 py-3 text-white outline-none transition focus:border-white/30">
-              {registeredUsers.map((user) => (
+            <select
+              name="opponentId"
+              required
+              disabled={opponents.length === 0}
+              className="w-full rounded-[1.25rem] border border-white/10 bg-black/25 px-4 py-3 text-white outline-none transition focus:border-white/30 disabled:opacity-60"
+            >
+              {opponents.map((user) => (
                 <option key={user.id} value={user.id} className="bg-zinc-950">
                   {user.username}
                 </option>
               ))}
             </select>
+            {opponents.length === 0 ? (
+              <span className="text-xs text-amber-300/80">
+                Nessun avversario disponibile: crea un secondo utente o verifica che il database sia migrato.
+              </span>
+            ) : null}
           </label>
           <label className="block space-y-2">
             <span className="text-sm text-white/72">Invite link</span>
@@ -38,7 +73,8 @@ export default function NewGamePage() {
             <SettingCard label="Stack" value="2,000 chips" />
           </div>
           <button
-            type="button"
+            type="submit"
+            disabled={opponents.length === 0}
             className="w-full rounded-full bg-white px-5 py-3 text-sm font-medium text-black transition hover:bg-zinc-200 sm:w-auto"
           >
             Create Game
