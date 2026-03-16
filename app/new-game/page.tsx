@@ -54,7 +54,7 @@ export default async function NewGamePage() {
             </select>
             {opponents.length === 0 ? (
               <span className="text-xs text-amber-300/80">
-                Nessun avversario disponibile: crea un secondo utente o verifica che il database sia migrato.
+                Nessun avversario disponibile: il secondo account deve aprire l&apos;app almeno una volta per essere sincronizzato nel database.
               </span>
             ) : null}
           </label>

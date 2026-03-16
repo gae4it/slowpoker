@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import Link from "next/link";
 import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import { AuthNavControls } from "@/components/auth-nav-controls";
+import { AuthSyncBootstrap } from "@/components/auth-sync-bootstrap";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 import "./globals.css";
 
@@ -42,6 +43,7 @@ export default function RootLayout({
     <html lang="it">
       <body className={`${spaceGrotesk.variable} ${ibmPlexMono.variable}`}>
         <ClerkProvider>
+          <AuthSyncBootstrap />
           <div className="grain" />
           <div className="page-shell relative flex min-h-screen flex-col">
             <header className="sticky top-0 z-20 border-b border-white/8 bg-black/30 backdrop-blur-xl">
