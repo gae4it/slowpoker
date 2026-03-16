@@ -1,0 +1,13 @@
+.next/
+node_modules/
+.vercel/
+dist/
+coverage/
+*.log
+.env
+.env.local
+.env.production
+.env.development
+drizzle/
+tmp-next/
+.tmp-next/
