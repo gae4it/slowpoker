@@ -192,7 +192,7 @@ async function finalizeGameWithShowdown(
     players: Array<{ id: string; userId: string; stack: number }>;
   },
 ) {
-  const { scoreHoldemHand } = await import("@/lib/poker/hand-eval");
+  const { findShowdownWinners } = await import("@/lib/poker/hand-eval");
 
   const board = await tx
     .select({ card: cards.card })
@@ -208,30 +208,24 @@ async function finalizeGameWithShowdown(
     .where(and(eq(cards.gameId, params.gameId), eq(cards.type, "hole")));
 
   const boardCards = board.map((entry) => entry.card as CardCode);
-  const scores = params.players.map((player) => {
-    const holeCards = playerCards
+  const playerHands = params.players.map((player) => ({
+    playerId: player.userId,
+    holeCards: playerCards
       .filter((entry) => entry.playerId === player.userId)
-      .map((entry) => entry.card as CardCode);
+      .map((entry) => entry.card as CardCode),
+  }));
 
-    const handScore = scoreHoldemHand([...holeCards, ...boardCards]);
-
-    return {
-      player,
-      score: handScore.value,
-    };
-  });
-
-  const bestScore = Math.max(...scores.map((entry) => entry.score));
-  const winners = scores.filter((entry) => entry.score === bestScore);
-  const splitAmount = Math.floor(params.pot / winners.length);
-  const remainder = params.pot % winners.length;
+  const winnerUserIds = findShowdownWinners(playerHands, boardCards);
+  const winners = params.players.filter((p) => winnerUserIds.includes(p.userId));
+  const splitAmount = Math.floor(params.pot / (winners.length || 1));
+  const remainder = params.pot % (winners.length || 1);
 
   for (const [index, winner] of winners.entries()) {
     const bonus = index === 0 ? remainder : 0;
     await tx
       .update(gamePlayers)
-      .set({ stack: winner.player.stack + splitAmount + bonus })
-      .where(eq(gamePlayers.id, winner.player.id));
+      .set({ stack: winner.stack + splitAmount + bonus })
+      .where(eq(gamePlayers.id, winner.id));
   }
 
   await tx

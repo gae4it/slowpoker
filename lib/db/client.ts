@@ -1,7 +1,8 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-const connectionString = process.env.DATABASE_URL;
+// Strip accidental surrounding quotes that some env parsers preserve
+const connectionString = (process.env.DATABASE_URL ?? "").replace(/^['"]|['"]$/g, "") || undefined;
 
 declare global {
   var __slowPokerDb: ReturnType<typeof drizzle> | undefined;
