@@ -44,9 +44,7 @@ export const gamePlayers = pgTable("game_players", {
   id: uuid("id").defaultRandom().primaryKey(),
   gameId: uuid("game_id").notNull(),
   userId: uuid("user_id").notNull(),
-  stack: integer("stack")
-    .default(2000)
-    .notNull(),
+  stack: integer("stack").default(2000).notNull(),
   position: text("position").notNull(),
   folded: boolean("folded").default(false).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),

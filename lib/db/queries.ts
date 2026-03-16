@@ -166,7 +166,10 @@ export async function getDashboardGroups(currentUserId: string): Promise<Dashboa
   return groups;
 }
 
-export async function getGameDetail(gameId: string, currentUserId: string): Promise<GameDetail | null> {
+export async function getGameDetail(
+  gameId: string,
+  currentUserId: string,
+): Promise<GameDetail | null> {
   const db = getDb();
 
   const me = aliasedTable(gamePlayers, "me_game");
@@ -199,18 +202,26 @@ export async function getGameDetail(gameId: string, currentUserId: string): Prom
     db
       .select({ card: cards.card })
       .from(cards)
-      .where(and(eq(cards.gameId, gameId), eq(cards.playerId, currentUserId), eq(cards.type, "hole")))
-      .orderBy(asc(cards.createdAt)),
-    db
-      .select({ card: cards.card })
-      .from(cards)
-      .where(and(eq(cards.gameId, gameId), ne(cards.playerId, currentUserId), eq(cards.type, "hole")))
+      .where(
+        and(eq(cards.gameId, gameId), eq(cards.playerId, currentUserId), eq(cards.type, "hole")),
+      )
       .orderBy(asc(cards.createdAt)),
     db
       .select({ card: cards.card })
       .from(cards)
       .where(
-        and(eq(cards.gameId, gameId), inArray(cards.type, ["flop", "turn", "river"]), isNull(cards.playerId)),
+        and(eq(cards.gameId, gameId), ne(cards.playerId, currentUserId), eq(cards.type, "hole")),
+      )
+      .orderBy(asc(cards.createdAt)),
+    db
+      .select({ card: cards.card })
+      .from(cards)
+      .where(
+        and(
+          eq(cards.gameId, gameId),
+          inArray(cards.type, ["flop", "turn", "river"]),
+          isNull(cards.playerId),
+        ),
       )
       .orderBy(asc(cards.createdAt)),
     db
@@ -287,4 +298,3 @@ export async function getUnreadNotifications(currentUserId: string) {
     items: rows as NotificationItem[],
   };
 }
-

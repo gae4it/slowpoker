@@ -162,7 +162,9 @@ async function finalizeGameWithFold(
       stack: gamePlayers.stack,
     })
     .from(gamePlayers)
-    .where(and(eq(gamePlayers.gameId, params.gameId), eq(gamePlayers.userId, params.winnerPlayerId)))
+    .where(
+      and(eq(gamePlayers.gameId, params.gameId), eq(gamePlayers.userId, params.winnerPlayerId)),
+    )
     .limit(1);
 
   if (winner.length > 0) {
@@ -348,13 +350,17 @@ export async function submitMoveAction(formData: FormData) {
       }
 
       if (action === "bet") {
-        const normalized = Number.isFinite(requestedAmount) && requestedAmount > 0 ? requestedAmount : 20;
+        const normalized =
+          Number.isFinite(requestedAmount) && requestedAmount > 0 ? requestedAmount : 20;
         amount = Math.min(actor.stack, normalized);
       }
 
       if (action === "raise") {
         const baseline = latestAggressiveMove?.amount ?? 20;
-        const normalized = Number.isFinite(requestedAmount) && requestedAmount > baseline ? requestedAmount : baseline * 2;
+        const normalized =
+          Number.isFinite(requestedAmount) && requestedAmount > baseline
+            ? requestedAmount
+            : baseline * 2;
         amount = Math.min(actor.stack, normalized);
       }
 
@@ -419,13 +425,7 @@ export async function submitMoveAction(formData: FormData) {
           `${playerUsers[0]?.username ?? "Opponent"} folded. You won the pot.`,
         );
 
-        await createNotification(
-          tx,
-          actor.userId,
-          gameId,
-          "Hand finished",
-          "You folded the hand.",
-        );
+        await createNotification(tx, actor.userId, gameId, "Hand finished", "You folded the hand.");
 
         return;
       } else if (roundClosedByChecks || roundClosedByCall) {
@@ -543,4 +543,3 @@ export async function submitMoveAction(formData: FormData) {
   revalidatePath(`/game/${gameId}`);
   redirect(`/game/${gameId}`);
 }
-

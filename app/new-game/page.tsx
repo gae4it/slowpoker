@@ -26,9 +26,7 @@ export default async function NewGamePage() {
 
   const syncState = await syncClerkUser();
   const opponents =
-    syncState && syncState.synced && syncState.user
-      ? await listOpponents(syncState.user.id)
-      : [];
+    syncState && syncState.synced && syncState.user ? await listOpponents(syncState.user.id) : [];
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_0.8fr]">
@@ -54,7 +52,8 @@ export default async function NewGamePage() {
             </select>
             {opponents.length === 0 ? (
               <span className="text-xs text-amber-300/80">
-                No opponents available: the second account must open the app at least once to be synced into the database.
+                No opponents available: the second account must open the app at least once to be
+                synced into the database.
               </span>
             ) : null}
           </label>

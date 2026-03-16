@@ -27,7 +27,5 @@ export function findShowdownWinners(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const winningHands = (Hand as any).winners(evaluated.map((e) => e.hand)) as object[];
 
-  return evaluated
-    .filter((e) => winningHands.includes(e.hand))
-    .map((e) => e.playerId);
+  return evaluated.filter((e) => winningHands.includes(e.hand)).map((e) => e.playerId);
 }

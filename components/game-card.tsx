@@ -9,16 +9,12 @@ type GameCardProps = {
   href: string;
 };
 
-export function GameCard({
-  opponentName,
-  pot,
-  phase,
-  lastMove,
-  statusLabel,
-  href,
-}: GameCardProps) {
+export function GameCard({ opponentName, pot, phase, lastMove, statusLabel, href }: GameCardProps) {
   return (
-    <Link href={href} className="block rounded-[1.5rem] border border-white/10 bg-white/4 p-4 transition hover:border-white/24 hover:bg-white/6">
+    <Link
+      href={href}
+      className="block rounded-[1.5rem] border border-white/10 bg-white/4 p-4 transition hover:border-white/24 hover:bg-white/6"
+    >
       <div className="flex items-center justify-between gap-3">
         <div>
           <div className="text-sm text-white/50">Game vs {opponentName}</div>

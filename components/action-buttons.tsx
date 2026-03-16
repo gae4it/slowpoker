@@ -12,7 +12,12 @@ type ActionButtonsProps = {
   disabled?: boolean;
 };
 
-export function ActionButtons({ gameId, formAction, actions, disabled = false }: ActionButtonsProps) {
+export function ActionButtons({
+  gameId,
+  formAction,
+  actions,
+  disabled = false,
+}: ActionButtonsProps) {
   return (
     <div className="panel rounded-[2rem] p-6">
       <div className="eyebrow text-xs text-white/48">Actions</div>

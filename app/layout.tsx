@@ -61,10 +61,16 @@ export default function RootLayout({
                   </div>
                 </Link>
                 <nav className="flex items-center gap-3 text-sm text-white/72">
-                  <Link href="/dashboard" className="hidden sm:block rounded-full border border-white/10 px-4 py-2 transition hover:border-white/25 hover:text-white">
+                  <Link
+                    href="/dashboard"
+                    className="hidden sm:block rounded-full border border-white/10 px-4 py-2 transition hover:border-white/25 hover:text-white"
+                  >
                     Dashboard
                   </Link>
-                  <Link href="/new-game" className="hidden sm:block rounded-full bg-white px-4 py-2 font-medium text-black transition hover:bg-zinc-200">
+                  <Link
+                    href="/new-game"
+                    className="hidden sm:block rounded-full bg-white px-4 py-2 font-medium text-black transition hover:bg-zinc-200"
+                  >
                     New Game
                   </Link>
                   <AuthNavControls />

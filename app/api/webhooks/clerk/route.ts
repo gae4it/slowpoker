@@ -45,7 +45,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: true, type: event.type, clerkId: event.data.id });
     }
     case "user.deleted": {
-      return NextResponse.json({ ok: true, type: event.type, ignored: true, reason: "preserve-game-history" });
+      return NextResponse.json({
+        ok: true,
+        type: event.type,
+        ignored: true,
+        reason: "preserve-game-history",
+      });
     }
     default: {
       return NextResponse.json({ ok: true, type: event.type, ignored: true });

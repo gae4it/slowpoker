@@ -14,7 +14,10 @@ export function buildUsername(clerkId: string, username?: string | null, email?:
   }
 
   if (email) {
-    const emailPrefix = email.split("@")[0]?.replace(/[^a-zA-Z0-9_]/g, "").toLowerCase();
+    const emailPrefix = email
+      .split("@")[0]
+      ?.replace(/[^a-zA-Z0-9_]/g, "")
+      .toLowerCase();
     if (emailPrefix && emailPrefix.length > 2) {
       return `${emailPrefix}_${clerkId.slice(-4)}`;
     }

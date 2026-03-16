@@ -2,14 +2,23 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
+import { Show, useClerk } from "@clerk/nextjs";
 import { useSyncExternalStore } from "react";
 
 const subscribe = () => () => {};
 
 function IconDashboard({ active }: { active: boolean }) {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.2 : 1.8} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={active ? 2.2 : 1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="3" y="3" width="7" height="7" rx="1.5" />
       <rect x="14" y="3" width="7" height="7" rx="1.5" />
       <rect x="3" y="14" width="7" height="7" rx="1.5" />
@@ -20,7 +29,16 @@ function IconDashboard({ active }: { active: boolean }) {
 
 function IconNewGame({ active }: { active: boolean }) {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.2 : 1.8} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={active ? 2.2 : 1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <circle cx="12" cy="12" r="9" />
       <line x1="12" y1="8" x2="12" y2="16" />
       <line x1="8" y1="12" x2="16" y2="12" />
@@ -30,7 +48,16 @@ function IconNewGame({ active }: { active: boolean }) {
 
 function IconProfile({ active }: { active: boolean }) {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.2 : 1.8} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={active ? 2.2 : 1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <circle cx="12" cy="8" r="4" />
       <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
     </svg>
@@ -53,7 +80,11 @@ function ProfileButton() {
 
 export function BottomNav() {
   const pathname = usePathname();
-  const mounted = useSyncExternalStore(subscribe, () => true, () => false);
+  const mounted = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
 
   const isActive = (href: string) => pathname.startsWith(href);
 
@@ -77,10 +108,10 @@ export function BottomNav() {
 
       {mounted && (
         <>
-          <SignedIn>
+          <Show when="signed-in">
             <ProfileButton />
-          </SignedIn>
-          <SignedOut>
+          </Show>
+          <Show when="signed-out">
             <Link
               href="/sign-in"
               className={`flex flex-1 flex-col items-center justify-center gap-1 py-3 text-[10px] font-medium transition ${isActive("/sign-in") ? "text-white" : "text-white/45 hover:text-white/70"}`}
@@ -88,7 +119,7 @@ export function BottomNav() {
               <IconProfile active={isActive("/sign-in")} />
               Sign in
             </Link>
-          </SignedOut>
+          </Show>
         </>
       )}
     </nav>

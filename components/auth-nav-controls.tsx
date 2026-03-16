@@ -6,7 +6,11 @@ import { useSyncExternalStore } from "react";
 const subscribe = () => () => {};
 
 export function AuthNavControls() {
-  const mounted = useSyncExternalStore(subscribe, () => true, () => false);
+  const mounted = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
 
   if (!mounted) {
     return <div className="h-10 w-[190px]" aria-hidden />;

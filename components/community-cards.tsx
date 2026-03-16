@@ -9,7 +9,11 @@ export function CommunityCards({ cards }: CommunityCardsProps) {
     <div>
       <div className="text-xs uppercase tracking-[0.2em] text-white/44">Board</div>
       <div className="mt-4 flex flex-wrap gap-3">
-        {cards.length > 0 ? cards.map((card) => <Card key={card} card={card} />) : <EmptyBoardSlots />}
+        {cards.length > 0 ? (
+          cards.map((card) => <Card key={card} card={card} />)
+        ) : (
+          <EmptyBoardSlots />
+        )}
       </div>
     </div>
   );

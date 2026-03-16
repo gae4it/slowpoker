@@ -1,6 +1,9 @@
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
-import { markAllNotificationsReadAction, markNotificationReadAction } from "@/app/actions/notifications";
+import {
+  markAllNotificationsReadAction,
+  markNotificationReadAction,
+} from "@/app/actions/notifications";
 import { GameCard } from "@/components/game-card";
 import { syncClerkUser } from "@/lib/auth/sync-clerk-user";
 import type { DashboardGroups } from "@/lib/db/queries";
@@ -75,7 +78,8 @@ export default async function DashboardPage() {
               Manage all your games without missing an important turn.
             </h1>
             <p className="mt-2 text-sm text-white/58">
-              Signed in as {syncState && "user" in syncState ? syncState.user?.username : userId ?? "player"}
+              Signed in as{" "}
+              {syncState && "user" in syncState ? syncState.user?.username : (userId ?? "player")}
             </p>
             {syncState?.synced ? (
               <p className="mt-1 text-xs text-emerald-300/90">App profile synced to database.</p>
@@ -176,7 +180,14 @@ export default async function DashboardPage() {
         </div>
         {notificationState.items.length === 0 && syncState?.synced ? (
           <div className="mt-4 text-xs text-white/45">
-            Go to <Link href="/new-game" className="text-white/72 underline decoration-white/20 underline-offset-4">create a game</Link> to generate new events.
+            Go to{" "}
+            <Link
+              href="/new-game"
+              className="text-white/72 underline decoration-white/20 underline-offset-4"
+            >
+              create a game
+            </Link>{" "}
+            to generate new events.
           </div>
         ) : null}
       </section>

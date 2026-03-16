@@ -59,7 +59,8 @@ export default async function GamePage({
             <p className="mt-2 text-sm text-white/60">Game ID: {id}</p>
           </div>
           <div className="rounded-full border border-emerald-400/25 bg-emerald-400/12 px-4 py-2 text-sm text-emerald-300">
-            {game.phase} • {game.status === "finished" ? "Finished" : game.isPlayerTurn ? "Your turn" : "Waiting"}
+            {game.phase} •{" "}
+            {game.status === "finished" ? "Finished" : game.isPlayerTurn ? "Your turn" : "Waiting"}
           </div>
         </div>
       </section>

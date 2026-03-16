@@ -3,21 +3,21 @@ import { InstallAppButton } from "@/components/install-app-button";
 const steps = {
   android: [
     "Open SlowPoker in Chrome.",
-    'Tap the three-dot menu in the top right corner.',
+    "Tap the three-dot menu in the top right corner.",
     'Select "Add to Home Screen".',
     'Tap "Install" in the confirmation dialog.',
     "SlowPoker will appear on your home screen like a native app.",
   ],
   ios: [
     "Open SlowPoker in Safari.",
-    'Tap the Share button (the square with an arrow pointing up) at the bottom of the screen.',
+    "Tap the Share button (the square with an arrow pointing up) at the bottom of the screen.",
     'Scroll down and tap "Add to Home Screen".',
     'Confirm by tapping "Add" in the top right corner.',
     "SlowPoker will appear on your home screen.",
   ],
   desktop: [
     "Open SlowPoker in Chrome or Edge.",
-    'Look for the install icon (⊕) in the address bar on the right side.',
+    "Look for the install icon (⊕) in the address bar on the right side.",
     'Click it and select "Install".',
     "SlowPoker will open as a standalone window.",
   ],
@@ -47,7 +47,8 @@ export default function InstallPage() {
           Install SlowPoker
         </h1>
         <p className="mt-3 max-w-2xl text-sm leading-7 text-white/65">
-          SlowPoker is a PWA — you can install it on your device and use it like a native app, with no App Store required. It works offline, loads fast, and stays in your home screen.
+          SlowPoker is a PWA — you can install it on your device and use it like a native app, with
+          no App Store required. It works offline, loads fast, and stays in your home screen.
         </p>
         <div className="mt-6">
           <InstallAppButton />
@@ -79,8 +80,14 @@ export default function InstallPage() {
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           {[
             { title: "Home screen shortcut", body: "Launch instantly without opening a browser." },
-            { title: "Full-screen experience", body: "No browser chrome — feels like a native app." },
-            { title: "Push notifications", body: "Get notified when it's your turn, even when the app is closed." },
+            {
+              title: "Full-screen experience",
+              body: "No browser chrome — feels like a native app.",
+            },
+            {
+              title: "Push notifications",
+              body: "Get notified when it's your turn, even when the app is closed.",
+            },
           ].map(({ title, body }) => (
             <div key={title} className="rounded-1.5rem border border-white/10 bg-white/4 p-4">
               <div className="text-sm font-semibold text-white">{title}</div>

@@ -9,12 +9,15 @@ export default async function HomePage() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center py-24 text-center">
       <div className="max-w-xl space-y-4">
-        <div className="text-xs uppercase tracking-[0.25em] text-white/44">Correspondence poker</div>
+        <div className="text-xs uppercase tracking-[0.25em] text-white/44">
+          Correspondence poker
+        </div>
         <h1 className="text-5xl font-semibold tracking-[-0.04em] text-white sm:text-6xl">
           SlowPoker
         </h1>
         <p className="text-base leading-7 text-white/60 sm:text-lg">
-          Async heads-up Texas Hold&apos;em.<br />
+          Async heads-up Texas Hold&apos;em.
+          <br />
           Play your move and come back when you&apos;re ready.
         </p>
         <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:justify-center">
